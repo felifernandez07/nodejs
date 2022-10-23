@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+
 const mongoose = require('mongoose');
+require("dotenv").config();
+const userRoutes = require("./src/routes/user");
 
 const port = process.env.PORT || 9000;
 
@@ -20,6 +23,11 @@ io.on('connection', (socket) =>{
     })
 })
 
+//middleware
+app.use('/api', userRoutes);
+app.use(express.json());
+
+//routes
 app.get('/', (req, res) => {
     //res.send('<h1>chat app</h1>');
     //console.log(__dirname);
